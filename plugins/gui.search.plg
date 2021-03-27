@@ -3,13 +3,13 @@
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
 <!ENTITY version   "2021.03.27">
-<!ENTITY md5       "8cfdef61f2f01e34778ee5b8a2494925">
+<!ENTITY md5       "00b4640d854920eb1af769a9a70fc1e5">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/ca.cfg.editor">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/master/plugins/&name;.plg">
 ]>
 
-<PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" icon="search">
+<PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search">
 
 <CHANGES>
 2021.03.27
