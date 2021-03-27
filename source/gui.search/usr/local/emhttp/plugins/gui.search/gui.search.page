@@ -37,7 +37,7 @@ Link='nav-user'
 		}
 		//pass 3 - cleanup
 		foreach ($newPage as $page) {
-			$searchPages[] = array("label"=>$page[0],"value"=>basename($page[1],".page"));
+		$searchPages[] = array("label"=>"<font size=0.5rem>{$page[0]}</font>","value"=>basename($page[1],".page"));
 		}
 	}
 ?>
@@ -68,16 +68,18 @@ Link='nav-user'
 <?if ($theme == "black" || $theme == "white"):?>
 <script>
 $(function() {
-	$("#nav-right").prepend("<span style='float:left'><input id='guiSearchBox' placeholder='Search' type='text'></input></span>");
-	$("#nav-block").css("overflow","visible");
-	var guiSearchAwesomplete;
-	guiSearchBoxInput = document.getElementById("guiSearchBox");
-	guiSearchAwesomplete = new Awesomplete(guiSearchBoxInput);
+	if (typeof Awesomplete == 'function' ) {
+		$("#nav-right").prepend("<span style='float:left'><input id='guiSearchBox' class='narrow' placeholder='Search' type='text'></input></span>");
+		$("#nav-block").css("overflow","visible");
+		var guiSearchAwesomplete;
+		guiSearchBoxInput = document.getElementById("guiSearchBox");
+		guiSearchAwesomplete = new Awesomplete(guiSearchBoxInput);
 
-	var guiSearchSuggestions = JSON.parse('<?=json_encode($searchPages)?>');
-	guiSearchAwesomplete.list = guiSearchSuggestions;
-	Awesomplete.$('#guiSearchBox').removeEventListener('awesomplete-selectcomplete',guiSearch);
-	Awesomplete.$('#guiSearchBox').addEventListener('awesomplete-selectcomplete',guiSearch);
+		var guiSearchSuggestions = JSON.parse('<?=json_encode($searchPages)?>');
+		guiSearchAwesomplete.list = guiSearchSuggestions;
+		Awesomplete.$('#guiSearchBox').removeEventListener('awesomplete-selectcomplete',guiSearch);
+		Awesomplete.$('#guiSearchBox').addEventListener('awesomplete-selectcomplete',guiSearch);
+	}
 <?if ( $currentUnraidPage !== "Apps" ):?>
 	$("#guiSearchBox").focus();
 <?endif;?>
