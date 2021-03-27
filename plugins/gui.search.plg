@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2021.03.27a">
-<!ENTITY md5       "a89e132b3a96cd98e2c3de0384c7b22b">
+<!ENTITY version   "2021.03.27b">
+<!ENTITY md5       "cccfa7e7f017af9dd24d06c6ed8861d8">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
@@ -12,7 +12,7 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search" support="https://forums.unraid.net/topic/104822-plugin-gui-search/">
 
 <CHANGES>
-2021.03.27a
+2021.03.27b
 - Make search box and autocomplete font smaller
 - Do not interfere with GUI if autocomplete fails to populate
 

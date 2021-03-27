@@ -68,6 +68,9 @@ Link='nav-user'
 <?if ($theme == "black" || $theme == "white"):?>
 <script>
 $(function() {
+		caPluginUpdateCheck("gui.search.plg",{
+			name:"GUI Search"
+		});
 	if (typeof Awesomplete == 'function' ) {
 		$("#nav-right").prepend("<span style='float:left'><input id='guiSearchBox' class='narrow' placeholder='Search' type='text'></input></span>");
 		$("#nav-block").css("overflow","visible");
