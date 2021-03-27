@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2021.03.27a">
-<!ENTITY md5       "a832dfe20c0a5086b15631694ff98c39">
+<!ENTITY version   "2021.03.27">
+<!ENTITY md5       "f828f0e4ee02c2629af096ee3992f333">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
