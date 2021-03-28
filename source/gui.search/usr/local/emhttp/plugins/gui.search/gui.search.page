@@ -47,7 +47,7 @@ Link='nav-user'
 function getSettings() {
 	global $searchPages, $pageInfo, $page,$file;
 	
-	$bannedPages = array("UserEdit","Device","community.applications","Selftest","DeviceInfo");
+	$bannedPages = array("UserEdit","Device","community.applications","Selftest","DeviceInfo","EthX");
 	if (in_array(basename($page,".page"),$bannedPages) ) return;
 	foreach (explode("\n",$file[1]) as $line) {
 		if ( preg_match("/^[_][(][[:print:]]+[)][_][:]/m",$line) ) {
