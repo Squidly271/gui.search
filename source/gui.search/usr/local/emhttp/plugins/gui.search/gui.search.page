@@ -9,7 +9,7 @@ Link='nav-user'
 #                                            #
 ##############################################
 	if ( $theme == "black" || $theme == "white" ) {
-		$currentUnraidPage = basename($_SERVER['HTTP_REFERER']);
+		$currentUnraidPage = basename($_SERVER['REQUEST_URI']);
 
 		$pageFiles = glob("/usr/local/emhttp/plugins/*/*.page");
 		$MainPages = array("About","WebGui","UNRAID-OS","SystemInformation","OtherSettings","Settings","NetworkServices","Utilities","UserPreferences");

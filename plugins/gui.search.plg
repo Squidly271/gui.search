@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2021.03.27b">
-<!ENTITY md5       "cccfa7e7f017af9dd24d06c6ed8861d8">
+<!ENTITY version   "2021.03.28">
+<!ENTITY md5       "6e7b8a355660ad1389b45311d85009e0">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
@@ -12,6 +12,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search" support="https://forums.unraid.net/topic/104822-plugin-gui-search/">
 
 <CHANGES>
+2021.03.28
+- Fixed: Search bar wouldn't appear if coming from Apps tab
+
 2021.03.27b
 - Make search box and autocomplete font smaller
 - Do not interfere with GUI if autocomplete fails to populate
