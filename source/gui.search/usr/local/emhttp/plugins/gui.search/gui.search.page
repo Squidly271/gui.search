@@ -10,7 +10,7 @@ Link='nav-user'
 ##############################################
 	if ( $theme == "black" || $theme == "white" ) {
 		$currentUnraidPage = basename($_SERVER['REQUEST_URI']);
-
+		$searchPages = array();
 		$pageFiles = glob("/usr/local/emhttp/plugins/*/*.page");
 		$MainPages = array("About","WebGui","UNRAID-OS","SystemInformation","OtherSettings","Settings","NetworkServices","Utilities","UserPreferences");
 		
@@ -34,13 +34,33 @@ Link='nav-user'
 			if ($newPage[$pageLinked]  && ! in_array($pageLinked,$MainPages) ) {
 				$newPage[] = array("{$pageInfo['Title']} ({$newPage[$pageLinked][0]})",$pageLinked);
 			}
+			getSettings();
 		}
 		//pass 3 - cleanup
 		foreach ($newPage as $page) {
-		$searchPages[] = array("label"=>"<font size=0.5rem>{$page[0]}</font>","value"=>basename($page[1],".page"));
+			if ( ! in_array(array("label"=>"{$page[0]}","value"=>basename($page[1],".page")),$searchPages) )
+				$searchPages[] = array("label"=>"{$page[0]}","value"=>basename($page[1],".page"));
+		}
+
+	}
+
+function getSettings() {
+	global $searchPages, $pageInfo, $page,$file;
+	
+	$bannedPages = array("UserEdit","Device","community.applications","Selftest","DeviceInfo");
+	if (in_array(basename($page,".page"),$bannedPages) ) return;
+	foreach (explode("\n",$file[1]) as $line) {
+		if ( preg_match("/^[_][(][[:print:]]+[)][_][:]/m",$line) ) {
+			$string = str_replace("_(","",$line);
+			$string = str_replace(")_:","",$string);
+			$string = str_replace('"',"",$string);
+			$string = str_replace("'","",$string);
+			if ( ! in_array(array("label"=>"$string ({$pageInfo['Title']})","value"=>basename($page,".page")),$searchPages) )
+				$searchPages[] = array("label"=>"$string ({$pageInfo['Title']})","value"=>basename($page,".page"));
 		}
 	}
-?>
+}
+?>  
 
 <?if ( ($theme == "black" || $theme == "white") && $currentUnraidPage !== "Apps"):?>
 <script src='<?autov("/plugins/community.applications/javascript/libraries.js")?>'></script>
@@ -82,6 +102,7 @@ $(function() {
 		guiSearchAwesomplete.list = guiSearchSuggestions;
 		Awesomplete.$('#guiSearchBox').removeEventListener('awesomplete-selectcomplete',guiSearch);
 		Awesomplete.$('#guiSearchBox').addEventListener('awesomplete-selectcomplete',guiSearch);
+		$("#guiSearchBox").next().css("width","500px");
 	}
 <?if ( $currentUnraidPage !== "Apps" ):?>
 	$("#guiSearchBox").focus();
