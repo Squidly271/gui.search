@@ -12,21 +12,21 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search" support="https://forums.unraid.net/topic/104822-plugin-gui-search/">
 
 <CHANGES>
-2021.03.28c
+###2021.03.28c
 - Only processes when the possibility exists for results to change
 - Compatibility with indexing Unassigned Devices' Settings
 
-2021.03.28a
+###2021.03.28a
 - Add indexing of individual settings on pages
 
-2021.03.28
+###2021.03.28
 - Fixed: Search bar wouldn't appear if coming from Apps tab
 
-2021.03.27b
+###2021.03.27b
 - Make search box and autocomplete font smaller
 - Do not interfere with GUI if autocomplete fails to populate
 
-2021.03.27
+###2021.03.27
 - Initial Release
 </CHANGES>
 
