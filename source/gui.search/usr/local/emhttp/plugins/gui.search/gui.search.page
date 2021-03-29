@@ -8,11 +8,12 @@ Link='nav-user'
 #           Licenced under GPLv2             #
 #                                            #
 ##############################################
+file_put_contents("/tmp/blah1",print_r($_SERVER,true));
 if ( $theme == "black" || $theme == "white" ) {
 	$currentUnraidPage = basename($_SERVER['REQUEST_URI']);
 	$searchPages = array();
 	$pageFiles = glob("/usr/local/emhttp/plugins/*/*.page");
-	if ( basename($_SERVER['HTTP_REFERER']) == "Apps" || basename($_SERVER['HTTP_REFERER']) == "Plugins" ) {
+	if ( basename($_SERVER['HTTP_REFERER']) == "Apps" || basename($_SERVER['HTTP_REFERER']) == "Plugins" || basename($_SERVER['HTTP_REFERER']) == "login" || basename($_SERVER['HTTP_REFERER']) = "logout") {
 		@unlink("/tmp/gui.search/searchResults.json");
 	} elseif ( is_file("/tmp/gui.search/searchResults.json") ) {
 		$searchPages = unserialize(file_get_contents("/tmp/gui.search/searchResults.json"));
@@ -26,7 +27,7 @@ if ( $theme == "black" || $theme == "white" ) {
 			$pageInfo = parse_ini_string($file[0],true);
 
 			if ( in_array(explode(":",$pageInfo['Menu'])[0],$MainPages) && ! in_array(basename($page,".page"),$MainPages) ) {
-				$newPage[basename($page,".page")] = array($pageInfo['Title'],basename($page));
+				$newPage[basename($page,".page")] = array(sanitizeQuote($pageInfo['Title']),basename($page));
 			}
 		}
 
@@ -38,14 +39,14 @@ if ( $theme == "black" || $theme == "white" ) {
 
 			$pageLinked = explode(":",$pageInfo['Menu'])[0];
 			if ($newPage[$pageLinked]  && ! in_array($pageLinked,$MainPages) ) {
-				$newPage[] = array("{$pageInfo['Title']} ({$newPage[$pageLinked][0]})",$pageLinked);
+				$newPage[] = array(sanitizeQuote($pageInfo['Title'])." ({$newPage[$pageLinked][0]})",$pageLinked);
 			}
 			getSettings();
 		}
 		//pass 3 - cleanup
 		foreach ($newPage as $page) {
-			if ( ! in_array(array("label"=>"{$page[0]}","value"=>basename($page[1],".page")),$searchPages) )
-				$searchPages[] = array("label"=>"{$page[0]}","value"=>basename($page[1],".page"));
+			if ( ! in_array(array("label"=>sanitizeQuote($page[0]),"value"=>basename($page[1],".page")),$searchPages) )
+				$searchPages[] = array("label"=>sanitizeQuote($page[0]),"value"=>basename($page[1],".page"));
 		}
 		@mkdir("/tmp/gui.search");
 		file_put_contents("/tmp/gui.search/searchResults.json",serialize($searchPages));
@@ -62,12 +63,14 @@ function getSettings() {
 			$string = str_replace("_(","",$line);
 			$string = str_replace(")_:","",$string);
 			$string = str_replace(")_?","",$string);
-			$string = str_replace('"',"",$string);
-			$string = str_replace("'","",$string);
+			$string = sanitizeQuote($string);
 			if ( ! in_array(array("label"=>"$string ({$pageInfo['Title']})","value"=>basename($page,".page")),$searchPages) )
 				$searchPages[] = array("label"=>"$string ({$pageInfo['Title']})","value"=>basename($page,".page"));
 		}
 	}
+}
+function sanitizeQuote($string) {
+	return str_replace("'","",str_replace('"',"",$string));
 }
 ?>
 
