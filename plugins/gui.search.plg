@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2021.03.28c">
-<!ENTITY md5       "9f71a6dfd1b92542834e9820be3fb660">
+<!ENTITY version   "2021.03.30">
+<!ENTITY md5       "9264b1a6a8554f6e55f6aef7e5ff87e3">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
@@ -12,6 +12,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search" support="https://forums.unraid.net/topic/104822-plugin-gui-search/">
 
 <CHANGES>
+###2021.03.30
+- Fix compatibility with OpenVPN plugin
+
 ###2021.03.28c
 - Only processes when the possibility exists for results to change
 - Compatibility with indexing Unassigned Devices' Settings
