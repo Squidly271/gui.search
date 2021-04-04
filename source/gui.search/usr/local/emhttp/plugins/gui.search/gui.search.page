@@ -103,7 +103,7 @@ $(function() {
 			name:"GUI Search"
 		});
 	if (typeof Awesomplete == 'function' ) {
-		$("#nav-right").prepend("<span style='float:left'><input id='guiSearchBox' class='narrow' placeholder='Search' type='text'></input></span>");
+		$("#nav-right").prepend("<span style='float:left'><input autocomplete='off' id='guiSearchBox' class='narrow' placeholder='Search' type='text'></input></span>");
 		$("#nav-block").css("overflow","visible");
 		var guiSearchAwesomplete;
 		guiSearchBoxInput = document.getElementById("guiSearchBox");
@@ -122,7 +122,7 @@ $(function() {
 });
 function guiSearch() {
 	var page = $("#guiSearchBox").val();
-	location.replace("/"+page);
+	location.replace("/<?=$currentUnraidPage?>/"+page);
 }
 </script>
 <?endif;?>
