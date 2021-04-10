@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2021.04.04">
-<!ENTITY md5       "e66d0df5f4310143c73f1021e6e71eab">
+<!ENTITY version   "2021.04.10">
+<!ENTITY md5       "ad2161cc228a1c9c525a68c583178303">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
@@ -12,6 +12,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search" support="https://forums.unraid.net/topic/104822-plugin-gui-search/">
 
 <CHANGES>
+###2021.04.10
+- Support for Azure / Grey Themes
+
 ###2021.04.04
 - Fixed: After navigating to a search result, the DONE button would reload the current page instead of taking you back to the previous
 
