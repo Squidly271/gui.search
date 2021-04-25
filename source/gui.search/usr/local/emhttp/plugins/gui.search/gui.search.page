@@ -111,7 +111,7 @@ $(function() {
 		name:"GUI Search"
 	});
 	if (typeof Awesomplete == 'function' ) {
-		$("#nav-right").prepend("<span style='float:left'><input autocomplete='off' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text'></input></span>");
+		$("#nav-right").prepend("<span style='float:left'><input autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text'></input></span>");
 		$("#nav-block").css("overflow","visible");
 		var guiSearchAwesomplete;
 		guiSearchBoxInput = document.getElementById("guiSearchBox");
@@ -123,6 +123,7 @@ $(function() {
 		Awesomplete.$('#guiSearchBox').removeEventListener('awesomplete-selectcomplete',guiSearch);
 		Awesomplete.$('#guiSearchBox').addEventListener('awesomplete-selectcomplete',guiSearch);
 		$("#guiSearchBox").next().addClass("guiSearchBoxResults");
+		$("#guiSearchBox").attr("autocomplete","new-password"); // Stop awesomplete from resetting autocomplete
 	}
 <?if ( $currentUnraidPage !== "Apps" ):?>
 	$("#guiSearchBox").focus();
