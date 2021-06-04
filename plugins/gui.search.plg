@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2021.04.25">
-<!ENTITY md5       "0e599bba95f0041a602d943f6ed8ceec">
+<!ENTITY version   "2021.06.04">
+<!ENTITY md5       "246d375a91f603c8cead5b2fc4d04944">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
@@ -12,6 +12,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search" support="https://forums.unraid.net/topic/104822-plugin-gui-search/">
 
 <CHANGES>
+###2021.06.04
+- Don't show flashing cursor
+
 ###2021.04.25
 - Prevent browser auto filling
 

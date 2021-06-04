@@ -85,6 +85,7 @@ function sanitizeQuote($string) {
 <?if ( $currentUnraidPage !== "Apps"):?>
 <script src='<?autov("/plugins/community.applications/javascript/libraries.js")?>'></script>
 <style>
+#guiSearchBox:placeholder-shown {caret-color:transparent;}
 .awesomplete [hidden] {display: none;}
 .awesomplete .visually-hidden {position: absolute;clip: rect(0, 0, 0, 0);}
 .awesomplete {display: inline-block;position: relative;color: red;}
