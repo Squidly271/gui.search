@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2021.11.15">
-<!ENTITY md5       "0582c97283cfc41d4543dff86902a224">
+<!ENTITY version   "2021.11.15a">
+<!ENTITY md5       "e37fc0ce150929e2de4e003bc30942d6">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
@@ -13,7 +13,7 @@
 
 <CHANGES>
 ###2021.11.15
-- Exclude WGX.pages from results
+- Redirect WG* to VPNmanager
 
 ###2021.06.04
 - Don't show flashing cursor
