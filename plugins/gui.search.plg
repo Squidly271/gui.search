@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2021.06.04">
-<!ENTITY md5       "246d375a91f603c8cead5b2fc4d04944">
+<!ENTITY version   "2021.11.15">
+<!ENTITY md5       "0582c97283cfc41d4543dff86902a224">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
@@ -12,6 +12,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search" support="https://forums.unraid.net/topic/104822-plugin-gui-search/">
 
 <CHANGES>
+###2021.11.15
+- Exclude WGX.pages from results
+
 ###2021.06.04
 - Don't show flashing cursor
 
@@ -65,11 +68,13 @@ The 'post-install' script
 -->
 <FILE Run="/bin/bash">
 <INLINE>
+rm -rf /tmp/gui.search
 echo ""
 echo "----------------------------------------------------"
 echo " &name; has been installed."
 echo " Copyright 2021, Andrew Zawadzki"
 echo " Version: &version;"
+echo " You need to navigate to another page for this to be active"
 echo "----------------------------------------------------"
 echo ""
 </INLINE>
