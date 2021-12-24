@@ -117,7 +117,7 @@ $(function() {
 		name:"GUI Search"
 	});
 	if (typeof Awesomplete == 'function' ) {
-		$("#nav-right").prepend("<span style='float:left'><input autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text'></input></span>");
+		$("#nav-right").prepend("<span style='float:left'><input autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:166px;'></input></span>");
 		$("#nav-block").css("overflow","visible");
 		var guiSearchAwesomplete;
 		guiSearchBoxInput = document.getElementById("guiSearchBox");

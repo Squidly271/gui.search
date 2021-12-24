@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2021.11.15a">
-<!ENTITY md5       "e37fc0ce150929e2de4e003bc30942d6">
+<!ENTITY version   "2021.12.24">
+<!ENTITY md5       "a2edaf99fafef3dad940947395f0b7d3">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
@@ -12,6 +12,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search" support="https://forums.unraid.net/topic/104822-plugin-gui-search/">
 
 <CHANGES>
+###2021.12.24
+- Compatibility fix with Dynamix File Manager (TBA)
+
 ###2021.11.15
 - Redirect WG* to VPNmanager
 
