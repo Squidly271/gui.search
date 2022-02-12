@@ -18,7 +18,7 @@ if ( basename($_SERVER['HTTP_REFERER']) == "Apps" || basename($_SERVER['HTTP_REF
 	$searchPages = unserialize(file_get_contents("/tmp/gui.search/searchResults.json"));
 }
 if ( ! $searchPages ) {
-	$MainPages = array("About","WebGui","UNRAID-OS","SystemInformation","OtherSettings","Settings","NetworkServices","Utilities","UserPreferences","WGX");
+	$MainPages = array("About","WebGui","UNRAID-OS","SystemInformation","OtherSettings","Settings","NetworkServices","Utilities","DiskUtilities","UserPreferences","WGX");
 	// pass 1 - get all the "main" pages
 	foreach ($pageFiles as $page) {
 		if ( $page == "/usr/local/emhttp/plugins/dynamix/WGX.page") continue;
@@ -64,8 +64,9 @@ function getSettings() {
 			$string = str_replace(")_?","",$string);
 			$string = sanitizeQuote($string);
 			$linkPage = basename($page,".page");
-			if (strpos($linkPage,"WG") == 0)
+			if (strpos($linkPage,"WG") === 0) {
 				$linkPage = "VPNmanager";
+			}
 			
 			if ( ! in_array(array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>$linkPage),$searchPages) )
 				$searchPages[] = array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>$linkPage);
