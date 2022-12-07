@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2022.02.12">
-<!ENTITY md5       "aa06feea4caf69a7c92344c279c906a5">
+<!ENTITY version   "2022.12.07">
+<!ENTITY md5       "3739c9d913a3a95622fab6c79eb168a9">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
@@ -12,6 +12,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search" support="https://forums.unraid.net/topic/104822-plugin-gui-search/">
 
 <CHANGES>
+###2022.12.07
+- Fixed: Compatibility when searching from within File Manager
+
 ###2022.02.12
 - Fixed: Preclear wouldn't show up in autocomplete entries
 - Fixed: Many autocomplete entries were being redirected to VPN Manager inproperly

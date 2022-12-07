@@ -9,7 +9,7 @@ Link='nav-user'
 #                                            #
 ##############################################
 
-$currentUnraidPage = basename($_SERVER['REQUEST_URI']);
+$currentUnraidPage = str_replace("Browse","Main",basename(explode("?",$_SERVER['REQUEST_URI'])[0]));
 $searchPages = array();
 $pageFiles = glob("/usr/local/emhttp/plugins/*/*.page");
 if ( basename($_SERVER['HTTP_REFERER']) == "Apps" || basename($_SERVER['HTTP_REFERER']) == "Plugins" ) {
