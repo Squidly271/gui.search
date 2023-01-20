@@ -8,7 +8,7 @@ Link='nav-user'
 #           Licenced under GPLv2             #
 #                                            #
 ##############################################
-
+error_reporting(E_ALL);
 $unRaid612 = version_compare("6.11.5",$var['version'],">");
 
 $currentUnraidPage = str_replace("Browse","Main",basename(explode("?",$_SERVER['REQUEST_URI'])[0]));
@@ -27,7 +27,7 @@ if ( ! $searchPages ) {
 		$file = explode("---",file_get_contents($page));
 		$pageInfo = parse_ini_string($file[0],true);
 
-		if ( in_array(explode(":",$pageInfo['Menu'])[0],$MainPages) && ! in_array(basename($page,".page"),$MainPages) ) {
+		if ( isset($pageInfo['Menu']) && $pageInfo['Menu'] && in_array(explode(":",$pageInfo['Menu'])[0],$MainPages) && ! in_array(basename($page,".page"),$MainPages) ) {
 			$newPage[basename($page,".page")] = array(sanitizeQuote($pageInfo['Title']),basename($page));
 		}
 	}
@@ -35,14 +35,16 @@ if ( ! $searchPages ) {
 	//pass 2 - link back any sub-pages
 	foreach ($pageFiles as $page) {
 		$file = explode("---",file_get_contents($page));
-		if ( ! $file[1] ) continue;
+		if ( ! isset($file[1]) ) continue;
 		$pageInfo = parse_ini_string($file[0],true);
 
-		$pageLinked = explode(":",$pageInfo['Menu'])[0];
-		if ($newPage[$pageLinked]  && ! in_array($pageLinked,$MainPages) ) {
-			$newPage[] = array(sanitizeQuote($pageInfo['Title'])." ({$newPage[$pageLinked][0]})",$pageLinked);
+		if (isset($pageInfo['Menu']) && $pageInfo['Menu']) {
+			$pageLinked = explode(":",$pageInfo['Menu'])[0];
+			if (isset($newPage[$pageLinked])  && ! in_array($pageLinked,$MainPages) ) {
+				$newPage[] = array(sanitizeQuote($pageInfo['Title'])." ({$newPage[$pageLinked][0]})",$pageLinked);
+			}
+			getSettings();
 		}
-		getSettings();
 	}
 	//pass 3 - cleanup
 	foreach ($newPage as $page) {
@@ -57,7 +59,7 @@ function getSettings() {
 	global $searchPages, $pageInfo, $page,$file;
 
 
-	$bannedPages = array("UserEdit","Device","community.applications","Selftest","DeviceInfo","EthX","ca_settings","CA_Notices");
+	$bannedPages = array("UserEdit","Device","community.applications","Selftest","DeviceInfo","EthX","ca_settings","CA_Notices","SecuritySMB","SecurityNFS");
 	if (in_array(basename($page,".page"),$bannedPages) ) return;
 	foreach (explode("\n",$file[1]) as $line) {
 		if ( preg_match("/^[_][(][[:print:]]+[)][_][:?]/m",$line) ) {
@@ -70,7 +72,7 @@ function getSettings() {
 				$linkPage = "VPNmanager";
 			}
 			if ( stripos(str_replace(" ","",$line),"<!--donotindex-->") )
-				continue;		
+				continue;
 			if ( ! in_array(array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**$string"),$searchPages) )
 				$searchPages[] = array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**$string");
 		}
@@ -144,7 +146,7 @@ function guiSearch() {
 	var searchInfo = $("#guiSearchBox").val().split("**");
 	
 	if (typeof searchInfo[1] !== 'undefined') {
-		var scrollText = "#:~:text="+searchInfo[1].replace(" ","%20");
+		var scrollText = "#:~:text="+searchInfo[1].replace(" ","%20").replace("-","%2d");
 	} else {
 		var scrollText = "";
 	}
