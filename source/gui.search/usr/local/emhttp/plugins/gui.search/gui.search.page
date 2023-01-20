@@ -9,6 +9,8 @@ Link='nav-user'
 #                                            #
 ##############################################
 
+$unRaid612 = version_compare("6.11.5",$var['version'],">");
+
 $currentUnraidPage = str_replace("Browse","Main",basename(explode("?",$_SERVER['REQUEST_URI'])[0]));
 $searchPages = array();
 $pageFiles = glob("/usr/local/emhttp/plugins/*/*.page");
@@ -118,8 +120,8 @@ $(function() {
 		name:"GUI Search"
 	});
 	if (typeof Awesomplete == 'function' ) {
-		$("#nav-right").prepend("<span style='float:left'><input autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:166px;'></input></span>");
-		$("#nav-block").css("overflow","visible");
+		$("#nav-right,.right").prepend("<span style='float:<?=$unRaid612 ? "right" : "left"?>;text-align:left !important'><input autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:166px;'></input></span>");
+		$("#nav-block,.right").css("overflow","visible");
 		var guiSearchAwesomplete;
 		guiSearchBoxInput = document.getElementById("guiSearchBox");
 		guiSearchAwesomplete = new Awesomplete(guiSearchBoxInput);
