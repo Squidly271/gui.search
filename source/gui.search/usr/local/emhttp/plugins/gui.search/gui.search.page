@@ -68,8 +68,8 @@ function getSettings() {
 				$linkPage = "VPNmanager";
 			}
 			
-			if ( ! in_array(array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>$linkPage),$searchPages) )
-				$searchPages[] = array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>$linkPage);
+			if ( ! in_array(array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**$string"),$searchPages) )
+				$searchPages[] = array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**$string");
 		}
 	}
 }
@@ -138,7 +138,8 @@ $(function() {
 });
 
 function guiSearch() {
-	var page = $("#guiSearchBox").val();
-	location.replace("/<?=$currentUnraidPage?>/"+page);
+	var searchInfo = $("#guiSearchBox").val().split("**");
+	
+	location.replace("/<?=$currentUnraidPage?>/"+searchInfo[0]+"#:~:text="+searchInfo[1].replace(" ","%20"));
 }
 </script>
