@@ -69,7 +69,8 @@ function getSettings() {
 			if (strpos($linkPage,"WG") === 0) {
 				$linkPage = "VPNmanager";
 			}
-			
+			if ( stripos(str_replace(" ","",$line),"<!--donotindex-->") )
+				continue;		
 			if ( ! in_array(array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**$string"),$searchPages) )
 				$searchPages[] = array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**$string");
 		}
