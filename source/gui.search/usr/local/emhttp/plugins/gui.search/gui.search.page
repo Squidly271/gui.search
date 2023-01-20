@@ -140,6 +140,12 @@ $(function() {
 function guiSearch() {
 	var searchInfo = $("#guiSearchBox").val().split("**");
 	
-	location.replace("/<?=$currentUnraidPage?>/"+searchInfo[0]+"#:~:text="+searchInfo[1].replace(" ","%20"));
+	if (typeof searchInfo[1] !== 'undefined') {
+		var scrollText = "#:~:text="+searchInfo[1].replace(" ","%20");
+	} else {
+		var scrollText = "";
+	}
+	
+	location.replace("/<?=$currentUnraidPage?>/"+searchInfo[0]+scrollText);
 }
 </script>
