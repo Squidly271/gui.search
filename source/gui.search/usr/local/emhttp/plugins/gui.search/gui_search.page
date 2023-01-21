@@ -119,6 +119,8 @@ function sanitizeQuote($string) {
 </style>
 <?endif;?>
 <script>
+var languageVisible = true;
+
 $(function() {
 	caPluginUpdateCheck("gui.search.plg",{
 		name:"GUI Search"
@@ -134,8 +136,10 @@ $(function() {
 function gui_search() {
 	if (typeof Awesomplete == 'function' ) {
 		<? if ( ! $uglyGUI ) : ?>
-			$(".LanguageButton").prepend("<span id='guiSearchBoxSpan' style='float:left;text-align:left !important'><input onfocusout='closeSearchBox();' autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:166px;'></input></span>");
+			languageVisible = $(".LanguageButton").is(":visible");
+			$("#menu").prepend("<span id='guiSearchBoxSpan' style='float:right;text-align:left !important'><input onfocusout='closeSearchBox();' autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:40rem;'></input></span>");
 			$("#nav-block,.right").css("overflow","visible");
+			$(".nav-item,#nav-item").hide();
 		<? endif; ?>
 		var guiSearchAwesomplete;
 		guiSearchBoxInput = document.getElementById("guiSearchBox");
@@ -161,18 +165,21 @@ function gui_search() {
 
 function closeSearchBox() {
 	$("#guiSearchBoxSpan").remove();
+	$(".nav-item,#nav-item").show();
+	if ( ! languageVisible )
+		$(".LanguageButton").hide();
+	
 }
 function guiSearch() {
 	event.stopPropagation();
 
 	var searchInfo = $("#guiSearchBox").val().split("**");
 	
-	if (typeof searchInfo[1] !== 'undefined') {
+	if (typeof searchInfo[1] !== 'undefined')
 		var scrollText = "#:~:text="+searchInfo[1].replace(" ","%20").replace("-","%2d");
-	} else {
+	else
 		var scrollText = "";
-	}
-	
-	location.replace("/<?=$currentUnraidPage?>/"+searchInfo[0]+scrollText);
+		
+	location.replace("/Settings/"+searchInfo[0]+scrollText);
 }
 </script>
