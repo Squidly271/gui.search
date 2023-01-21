@@ -1,5 +1,6 @@
 Menu='Buttons'
 Icon='search'
+Title='Search At Top Left'
 Code='f002'
 ---
 <?
@@ -11,6 +12,9 @@ Code='f002'
 ##############################################
 
 $currentUnraidPage = str_replace("Browse","Main",basename(explode("?",$_SERVER['REQUEST_URI'])[0]));
+
+$uglyGUI = ($theme == "azure" || $theme == "gray");
+
 $searchPages = array();
 $pageFiles = glob("/usr/local/emhttp/plugins/*/*.page");
 if ( is_file("/tmp/gui.search/searchResults.json") ) {
@@ -82,12 +86,12 @@ function sanitizeQuote($string) {
 ?>
 
 <style>
-<? if ($theme == "gray" || $theme == "azure"):?>
+<? if ($uglyGUI):?>
 #guiSearchBox {position:fixed;top:55px;left:250px;}
 .guiSearchBoxResults {position:fixed !important;top:90px !important; left:250px !important;}
-<? else:?>
+<? else:  ?>
 .guiSearchBoxResults {width:450px;}
-<?endif;?>
+<? endif; ?>
 </style>
 
 <?if ( $currentUnraidPage !== "Apps"):?>
@@ -119,12 +123,20 @@ $(function() {
 	caPluginUpdateCheck("gui.search.plg",{
 		name:"GUI Search"
 	});
+	<? if ($uglyGUI) : ?>
+		$(".gui_search").hide();
+		$("#menu").prepend("<span id='guiSearchBoxSpan' style='float:left;text-align:left !important'><input autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:166px;'></input></span>");
+		$("#nav-block,.right").css("overflow","visible");
+		gui_search();
+	<? endif; ?>
 });
 
 function gui_search() {
 	if (typeof Awesomplete == 'function' ) {
-		$(".LanguageButton").prepend("<span id='guiSearchBoxSpan' style='float:left;text-align:left !important'><input onfocusout='closeSearchBox();' autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:166px;'></input></span>");
-		$("#nav-block,.right").css("overflow","visible");
+		<? if ( ! $uglyGUI ) : ?>
+			$(".LanguageButton").prepend("<span id='guiSearchBoxSpan' style='float:left;text-align:left !important'><input onfocusout='closeSearchBox();' autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:166px;'></input></span>");
+			$("#nav-block,.right").css("overflow","visible");
+		<? endif; ?>
 		var guiSearchAwesomplete;
 		guiSearchBoxInput = document.getElementById("guiSearchBox");
 		guiSearchAwesomplete = new Awesomplete(guiSearchBoxInput);
@@ -138,10 +150,13 @@ function gui_search() {
 		$("#guiSearchBox").attr("autocomplete","new-password"); // Stop awesomplete from resetting autocomplete
 	}
 	$("#guiSearchBox").focus();
-	$("#guiSearchBox").keydown(function(e) {
-		if (e.which === 27)
-			closeSearchBox();
-	});
+	
+	<? if ( ! $uglyGUI ) : ?>
+		$("#guiSearchBox").keydown(function(e) {
+			if (e.which === 27)
+				closeSearchBox();
+		});
+	<? endif; ?>
 }
 
 function closeSearchBox() {
