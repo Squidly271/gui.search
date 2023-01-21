@@ -1,5 +1,6 @@
 Menu='Buttons'
-Link='nav-user'
+Icon='search'
+Code='f002'
 ---
 <?
 ##############################################
@@ -8,14 +9,11 @@ Link='nav-user'
 #           Licenced under GPLv2             #
 #                                            #
 ##############################################
-$unRaid612 = version_compare($var['version'],"6.11.5",">");
 
 $currentUnraidPage = str_replace("Browse","Main",basename(explode("?",$_SERVER['REQUEST_URI'])[0]));
 $searchPages = array();
 $pageFiles = glob("/usr/local/emhttp/plugins/*/*.page");
-if ( basename($_SERVER['HTTP_REFERER']) == "Apps" || basename($_SERVER['HTTP_REFERER']) == "Plugins" ) {
-	@unlink("/tmp/gui.search/searchResults.json");
-} elseif ( is_file("/tmp/gui.search/searchResults.json") ) {
+if ( is_file("/tmp/gui.search/searchResults.json") ) {
 	$searchPages = unserialize(file_get_contents("/tmp/gui.search/searchResults.json"));
 }
 if ( ! $searchPages ) {
@@ -121,8 +119,11 @@ $(function() {
 	caPluginUpdateCheck("gui.search.plg",{
 		name:"GUI Search"
 	});
+});
+
+function gui_search() {
 	if (typeof Awesomplete == 'function' ) {
-		$("#nav-right,.right").prepend("<span style='float:<?=$unRaid612 ? "right" : "left"?>;text-align:left !important'><input autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:166px;'></input></span>");
+		$(".LanguageButton").prepend("<span id='guiSearchBoxSpan' style='float:left;text-align:left !important'><input onfocusout='closeSearchBox();' autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:166px;'></input></span>");
 		$("#nav-block,.right").css("overflow","visible");
 		var guiSearchAwesomplete;
 		guiSearchBoxInput = document.getElementById("guiSearchBox");
@@ -136,12 +137,19 @@ $(function() {
 		$("#guiSearchBox").next().addClass("guiSearchBoxResults");
 		$("#guiSearchBox").attr("autocomplete","new-password"); // Stop awesomplete from resetting autocomplete
 	}
-<?if ( $currentUnraidPage !== "Apps" ):?>
 	$("#guiSearchBox").focus();
-<?endif;?>
-});
+	$("#guiSearchBox").keydown(function(e) {
+		if (e.which === 27)
+			closeSearchBox();
+	});
+}
 
+function closeSearchBox() {
+	$("#guiSearchBoxSpan").remove();
+}
 function guiSearch() {
+	event.stopPropagation();
+
 	var searchInfo = $("#guiSearchBox").val().split("**");
 	
 	if (typeof searchInfo[1] !== 'undefined') {
