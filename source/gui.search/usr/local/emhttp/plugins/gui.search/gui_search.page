@@ -12,6 +12,7 @@ Code='f002'
 ##############################################
 
 $currentUnraidPage = str_replace("Browse","Main",basename(explode("?",$_SERVER['REQUEST_URI'])[0]));
+$Unraid612 = version_compare("6.11.5",$var['version'],"<");
 
 $uglyGUI = ($theme == "azure" || $theme == "gray");
 
@@ -119,6 +120,7 @@ function sanitizeQuote($string) {
 </style>
 <?endif;?>
 <script>
+
 var languageVisible = true;
 
 $(function() {
@@ -137,9 +139,11 @@ function gui_search() {
 	if (typeof Awesomplete == 'function' ) {
 		<? if ( ! $uglyGUI ) : ?>
 			languageVisible = $(".LanguageButton").is(":visible");
-			$("#menu").prepend("<span id='guiSearchBoxSpan' style='float:right;text-align:left !important'><input onfocusout='closeSearchBox();' autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:40rem;'></input></span>");
+			var el = "<?=$Unraid612 ? ".right" : "#menu"?>";
+			
+			$(el).prepend("<span id='guiSearchBoxSpan' style='float:right;text-align:left !important'><input onfocusout='closeSearchBox();' autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:40rem;'></input></span>");
 			$("#nav-block,.right").css("overflow","visible");
-			$(".nav-item,#nav-item").hide();
+			$(".nav-item.util,#nav-item.util").hide();
 		<? endif; ?>
 		var guiSearchAwesomplete;
 		guiSearchBoxInput = document.getElementById("guiSearchBox");
