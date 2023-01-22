@@ -12,6 +12,7 @@ Code='f002'
 ##############################################
 
 $currentUnraidPage = str_replace("Browse","Main",basename(explode("?",$_SERVER['REQUEST_URI'])[0]));
+file_put_contents("/tmp/blah",$currentUnraidPage);
 $Unraid612 = version_compare("6.11.5",$var['version'],"<");
 
 $uglyGUI = ($theme == "azure" || $theme == "gray");
@@ -183,7 +184,9 @@ function guiSearch() {
 		var scrollText = "#:~:text="+searchInfo[1].replace(" ","%20").replace("-","%2d");
 	else
 		var scrollText = "";
-		
+	
 	location.replace("/Settings/"+searchInfo[0]+scrollText);
+	closeSearchBox();
+
 }
 </script>
