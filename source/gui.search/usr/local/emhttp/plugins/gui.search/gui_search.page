@@ -150,10 +150,8 @@ $(function() {
 		});
 	}
 	var hashTag = window.location.hash.substr(1).replace("%20"," ").replace("%2d","-");
-	if ( hashTag.length) {
+	if ( hashTag.length)
 		$("body").mark(hashTag,{"separateWordSearch": false});
-	}
-		
 });
 
 function gui_search() {
