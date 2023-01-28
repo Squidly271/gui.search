@@ -221,18 +221,6 @@ function guiSearch() {
 
 	var searchInfo = $("#guiSearchBox").val().split("**");
 	
-	switch (browserName) {
-		case "Chrome":
-			var separator = "#:~:text=";
-			break;
-		case "Edge":
-			var separator = "#:~:text=";
-			break;
-		default:
-			var separator = "#";
-			break;
-	}
-
 	var separator = "#";
 	if (browserName == "Chrome" || browserName == "Edge")
 		var separator = "#:~:text=";
