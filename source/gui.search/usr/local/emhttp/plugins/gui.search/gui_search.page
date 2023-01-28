@@ -12,7 +12,6 @@ Code='f002'
 ##############################################
 
 $currentUnraidPage = str_replace("Browse","Main",basename(explode("?",$_SERVER['REQUEST_URI'])[0]));
-file_put_contents("/tmp/blah",print_r($notify,true));
 $Unraid612 = version_compare("6.11.5",$var['version'],"<");
 
 $uglyGUI = ($theme == "azure" || $theme == "gray");
@@ -60,7 +59,6 @@ if ( ! $searchPages ) {
 
 function getSettings() {
 	global $searchPages, $pageInfo, $page,$file;
-
 
 	$bannedPages = array("ShareEdit","UserEdit","Device","community.applications","Selftest","DeviceInfo","EthX","ca_settings","CA_Notices","SecuritySMB","SecurityNFS");
 	if (in_array(basename($page,".page"),$bannedPages) ) return;
@@ -134,7 +132,7 @@ $(function() {
 		$("#nav-block,.right").css("overflow","visible");
 		gui_search();
 	<? endif; ?>
-	
+
 	if (navigator.appVersion.indexOf("Mac")!=-1) {
 		window.addEventListener('keydown', function (e) {
 			if (e.metaKey && e.keyCode == 75) {
@@ -142,8 +140,8 @@ $(function() {
 				e.stopPropagation();
 				gui_search();
 			}
-		});		
-	} else {	
+		});
+	} else {
 		window.addEventListener('keydown', function (e) {
 			if (e.ctrlKey && e.keyCode == 75) {
 				e.preventDefault();
@@ -159,7 +157,7 @@ function gui_search() {
 		<? if ( ! $uglyGUI ) : ?>
 			languageVisible = $(".LanguageButton").is(":visible");
 			var el = "<?=$Unraid612 ? ".right" : "#menu"?>";
-			
+
 			$(el).prepend("<span id='guiSearchBoxSpan' style='float:right;text-align:left !important'><input onfocusout='closeSearchBox();' autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:40rem;'></input></span>");
 			$("#nav-block,.right").css("overflow","visible");
 			$(".nav-item.util,#nav-item.util").hide();
@@ -180,7 +178,7 @@ function gui_search() {
 		$("#guiSearchBox").attr("autocomplete","new-password"); // Stop awesomplete from resetting autocomplete
 	}
 	$("#guiSearchBox").focus();
-	
+
 	<? if ( ! $uglyGUI ) : ?>
 		$("#guiSearchBox").keydown(function(e) {
 			if (e.which === 27)
@@ -194,32 +192,31 @@ function closeSearchBox() {
 	$(".nav-item,#nav-item").show();
 	if ( ! languageVisible )
 		$(".LanguageButton").hide();
-	
+
 	<? if ( ! $uglyGUI && $notify['display'] ): ?>
 		$(".tub,#nav-tub1,#nav-tub2,#nav-tub3").show();
 	<? endif; ?>
-		
-	
 }
+
+
 function guiSearch() {
 	event.stopPropagation();
 
 	var searchInfo = $("#guiSearchBox").val().split("**");
-	
+
 	if (typeof searchInfo[1] !== 'undefined')
 		var scrollText = "#:~:text="+searchInfo[1].replace(" ","%20").replace("-","%2d");
 	else
 		var scrollText = "";
-	
+
 	var newPage = "<?=$currentUnraidPage?>";
 	<? if (  $Unraid612 ) : ?>
 		if ( newPage == "Dashboard" ) {
 			newPage = "Settings";
 		}
 	<? endif; ?>
-	
+
 	location.replace("/"+newPage+"/"+searchInfo[0]+scrollText);
 	closeSearchBox();
-
 }
 </script>
