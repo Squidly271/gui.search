@@ -134,6 +134,14 @@ $(function() {
 		$("#nav-block,.right").css("overflow","visible");
 		gui_search();
 	<? endif; ?>
+	
+	window.addEventListener('keydown', function (e) {
+		if (e.ctrlKey && e.keyCode == 75) {
+			e.preventDefault();
+			e.stopPropagation();
+			gui_search();
+		}
+	});
 });
 
 function gui_search() {
