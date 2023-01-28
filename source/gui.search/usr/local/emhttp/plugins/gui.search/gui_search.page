@@ -135,13 +135,23 @@ $(function() {
 		gui_search();
 	<? endif; ?>
 	
-	window.addEventListener('keydown', function (e) {
-		if (e.ctrlKey && e.keyCode == 75) {
-			e.preventDefault();
-			e.stopPropagation();
-			gui_search();
-		}
-	});
+	if (navigator.appVersion.indexOf("Mac")!=-1) {
+		window.addEventListener('keydown', function (e) {
+			if (e.metaKey && e.keyCode == 75) {
+				e.preventDefault();
+				e.stopPropagation();
+				gui_search();
+			}
+		});		
+	} else {	
+		window.addEventListener('keydown', function (e) {
+			if (e.ctrlKey && e.keyCode == 75) {
+				e.preventDefault();
+				e.stopPropagation();
+				gui_search();
+			}
+		});
+	}
 });
 
 function gui_search() {
@@ -154,7 +164,7 @@ function gui_search() {
 			$("#nav-block,.right").css("overflow","visible");
 			$(".nav-item.util,#nav-item.util").hide();
 		<? endif; ?>
-		<? if ( $notify['display'] ): ?>
+		<? if ( ! $uglyGUI && $notify['display'] ): ?>
 			$(".tub,#nav-tub1,#nav-tub2,#nav-tub3").hide();
 		<? endif; ?>
 		var guiSearchAwesomplete;
@@ -185,7 +195,7 @@ function closeSearchBox() {
 	if ( ! languageVisible )
 		$(".LanguageButton").hide();
 	
-	<? if ( $notify['display'] ): ?>
+	<? if ( ! $uglyGUI && $notify['display'] ): ?>
 		$(".tub,#nav-tub1,#nav-tub2,#nav-tub3").show();
 	<? endif; ?>
 		
