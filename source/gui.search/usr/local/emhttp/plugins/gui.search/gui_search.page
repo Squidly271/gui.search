@@ -12,7 +12,7 @@ Code='f002'
 ##############################################
 
 $currentUnraidPage = str_replace("Browse","Main",basename(explode("?",$_SERVER['REQUEST_URI'])[0]));
-file_put_contents("/tmp/blah",$currentUnraidPage);
+file_put_contents("/tmp/blah",print_r($notify,true));
 $Unraid612 = version_compare("6.11.5",$var['version'],"<");
 
 $uglyGUI = ($theme == "azure" || $theme == "gray");
@@ -146,6 +146,9 @@ function gui_search() {
 			$("#nav-block,.right").css("overflow","visible");
 			$(".nav-item.util,#nav-item.util").hide();
 		<? endif; ?>
+		<? if ( $notify['display'] ): ?>
+			$(".tub,#nav-tub1,#nav-tub2,#nav-tub3").hide();
+		<? endif; ?>
 		var guiSearchAwesomplete;
 		guiSearchBoxInput = document.getElementById("guiSearchBox");
 		guiSearchAwesomplete = new Awesomplete(guiSearchBoxInput);
@@ -174,6 +177,11 @@ function closeSearchBox() {
 	if ( ! languageVisible )
 		$(".LanguageButton").hide();
 	
+	<? if ( $notify['display'] ): ?>
+		$(".tub,#nav-tub1,#nav-tub2,#nav-tub3").show();
+	<? endif; ?>
+		
+	
 }
 function guiSearch() {
 	event.stopPropagation();
@@ -185,7 +193,14 @@ function guiSearch() {
 	else
 		var scrollText = "";
 	
-	location.replace("/Settings/"+searchInfo[0]+scrollText);
+	var newPage = "<?=$currentUnraidPage?>";
+	<? if (  $Unraid612 ) : ?>
+		if ( newPage == "Dashboard" ) {
+			newPage = "Settings";
+		}
+	<? endif; ?>
+	
+	location.replace("/"+newPage+"/"+searchInfo[0]+scrollText);
 	closeSearchBox();
 
 }
