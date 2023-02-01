@@ -18,6 +18,7 @@
 - CTRL-K or CMD-K will automatically open the search
 - Highlight search result on page navigated to
 - Minimum compatibility now 6.11.0
+
 ###2022.12.07
 - Fixed: Compatibility when searching from within File Manager
 
@@ -86,7 +87,7 @@ The 'post-install' script
 <INLINE>
 rm -rf /usr/local/emhttp/plugins/gui.search/gui.search.page
 rm -rf /tmp/gui.search
-ln -s /usr/local/emhttp/plugins/gui.search/gui_search_post_hook.sh /usr/local/emhttp/plugins/dynamix.plugin.manager/post-hooks/gui_search_post_hook.sh > /dev/null 2>&1
+ln -s /usr/local/emhttp/plugins/gui.search/gui_search_post_hook.sh /usr/local/emhttp/plugins/dynamix.plugin.manager/post-hooks/gui_search_post_hook.sh
 
 echo ""
 echo "----------------------------------------------------"
