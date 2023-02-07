@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2023.02.01">
-<!ENTITY md5       "376ee65986c6390f4f9c80b2ba0c7aa2">
+<!ENTITY version   "2023.02.07">
+<!ENTITY md5       "618d440ba3bf437ebd6298f0afbef8cb">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
@@ -12,6 +12,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search" support="https://forums.unraid.net/topic/104822-plugin-gui-search/" min="6.11.0">
 
 <CHANGES>
+###2023.02.07
+- Fixed: Multiple CTRL-K would cause display aberrations
+
 ###2023.02.01
 - Move to an icon on task bar
 - PHP8 compliance
