@@ -149,8 +149,12 @@ $(function() {
 			if (e.metaKey && e.keyCode == 75) {
 				e.preventDefault();
 				e.stopPropagation();
-				if ( $("#guiSearchBoxSpan").is(":visible") )
-					return;				
+				if ( $("#guiSearchBoxSpan").is(":visible") ) {
+					<? if ( ! $uglyGUI ) : ?>
+						closeSearchBox();
+					<? endif; ?>
+					return;
+				}
 				gui_search();
 			}
 		});
@@ -159,8 +163,12 @@ $(function() {
 			if (e.ctrlKey && e.keyCode == 75) {
 				e.preventDefault();
 				e.stopPropagation();
-				if ( $("#guiSearchBoxSpan").is(":visible") )
+				if ( $("#guiSearchBoxSpan").is(":visible") ) {
+					<? if ( ! $uglyGUI ) : ?>
+						closeSearchBox();
+					<? endif; ?>
 					return;
+				}
 				gui_search();
 			}
 		});
