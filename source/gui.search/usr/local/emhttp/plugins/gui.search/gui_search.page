@@ -189,7 +189,7 @@ function gui_search() {
 
 			$(el).prepend("<span id='guiSearchBoxSpan' style='float:right;text-align:left !important'><input onfocusout='closeSearchBox();' autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:40rem;'></input></span>");
 			$("#nav-block,.right").css("overflow","visible");
-			$(".nav-item.util,#nav-item.util").hide();
+			$(".nav-item.util,#nav-item.util,.nav-user.show").hide();
 		<? endif; ?>
 		<? if ( ! $uglyGUI && $notify['display'] ): ?>
 			$(".tub,#nav-tub1,#nav-tub2,#nav-tub3").hide();
@@ -218,7 +218,7 @@ function gui_search() {
 
 function closeSearchBox() {
 	$("#guiSearchBoxSpan").remove();
-	$(".nav-item,#nav-item").show();
+	$(".nav-item,#nav-item,.nav-user.show").show();
 	if ( ! languageVisible )
 		$(".LanguageButton").hide();
 
