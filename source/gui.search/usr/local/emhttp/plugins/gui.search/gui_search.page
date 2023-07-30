@@ -128,7 +128,7 @@ function gui_search() {
 			languageVisible = $(".LanguageButton").is(":visible");
 			var el = "<?=$Unraid612 ? ".right" : "#menu"?>";
 
-			$(el).prepend("<span id='guiSearchBoxSpan' style='float:right;text-align:left !important'><input onfocusout='closeSearchBox();' autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:40rem;'></input></span>");
+			$(el).prepend("<span id='guiSearchBoxSpan' style='float:right;text-align:left !important'><input onfocusout='closeSearchBox();' autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='"+_("Search WebGUI")+"' type='text' style='width:40rem;'></input></span>");
 			$("#nav-block,.right").css("overflow","visible");
 			$(".nav-item.util,#nav-item.util,.nav-user.show").hide();
 		<? endif; ?>
@@ -187,7 +187,7 @@ function guiSearch() {
 
 	var newPage = "<?=$currentUnraidPage?>/Settings/Tools";
 	<? if (  $Unraid612 ) : ?>
-		if ( newPage == "Dashboard" ) {
+		if ( newPage == "Dashboard/Settings/Tools" ) {
 			newPage = "Settings";
 		}
 	<? endif; ?>
