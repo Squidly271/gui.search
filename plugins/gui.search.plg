@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "gui.search">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2023.07.30b">
-<!ENTITY md5       "bce4d6d95ab13edf0000c01c7c9cc0b2">
+<!ENTITY version   "2023.08.02">
+<!ENTITY md5       "d56fee8c2b80ff5cd39834ac2bd04d51">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/gui.search">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/main/plugins/&name;.plg">
@@ -12,6 +12,10 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="search" support="https://forums.unraid.net/topic/104822-plugin-gui-search/" min="6.11.0">
 
 <CHANGES>
+###2023.08.02
+- Highlight search result on page when different language but searching in English
+- If no translation present, English autocompletes would appear twice
+
 ###2023.07.30
 - Added: Multi-language support 
 

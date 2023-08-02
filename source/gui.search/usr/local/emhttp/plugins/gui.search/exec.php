@@ -98,8 +98,10 @@ function getSettings() {
 				continue;
 			if ( ! in_array(array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**"._($string)),$searchPages) ) {
 				$searchPages[] = array("label"=>_($string)." (".sanitizeQuote(_($pageInfo['Title'])).")","value"=>"$linkPage**"._($string));
-				if ( $locale )
-					$searchPages[] = array("label"=>($string)." (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**$string");
+				if ( $locale ) {
+					if ( _($string) !== $string )
+						$searchPages[] = array("label"=>($string)." (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**"._($string));
+				}
 			}
 		}
 	}
