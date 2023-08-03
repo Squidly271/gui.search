@@ -54,7 +54,8 @@ $uglyGUI = ($theme == "azure" || $theme == "gray");
 <script>
 
 var languageVisible = true;
-var searchPages;
+var guiSearchSuggestions;
+
 var browserName = (function (agent) {
 	switch (true) {
 		case agent.indexOf("edge") > -1: return "Edge"; // Edge
@@ -74,53 +75,61 @@ $(function() {
 	});
 	$.post("/plugins/gui.search/exec.php",function(data) {
 		if (data) {
-			searchPages = data;
-			
-			<? if ($uglyGUI) : ?>
+			try{
+				guiSearchSuggestions = JSON.parse(data);
+				setupGUIsearch();
+			} catch(e) {
+				console.log("Invalid JSON for GUI search autocomplete");
 				$(".gui_search").hide();
-				$("#menu").prepend("<span id='guiSearchBoxSpan' style='float:left;text-align:left !important'><input autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:166px;'></input></span>");
-				$("#nav-block,.right").css("overflow","visible");
-				gui_search();
-			<? endif; ?>
-
-			if (navigator.appVersion.indexOf("Mac")!=-1) {
-				window.addEventListener('keydown', function (e) {
-					if (e.metaKey && e.keyCode == 75) {
-						e.preventDefault();
-						e.stopPropagation();
-						if ( $("#guiSearchBoxSpan").is(":visible") ) {
-							<? if ( ! $uglyGUI ) : ?>
-								closeSearchBox();
-							<? endif; ?>
-							return;
-						}
-						gui_search();
-					}
-				});
-			} else {
-				window.addEventListener('keydown', function (e) {
-					if (e.ctrlKey && e.keyCode == 75) {
-						e.preventDefault();
-						e.stopPropagation();
-						if ( $("#guiSearchBoxSpan").is(":visible") ) {
-							<? if ( ! $uglyGUI ) : ?>
-								closeSearchBox();
-							<? endif; ?>
-							return;
-						}
-						gui_search();
-					}
-				});
 			}
-			if (browserName !== "Chrome" && browserName !== "Edge") {
-				var hashTag = window.location.hash.substr(1).replace("%20"," ").replace("%2d","-");
-				if ( hashTag.length) {
-					$("body").mark(hashTag,{"accuracy": {"value": "exactly","limiters": [".",":","?"]},"separateWordSearch": false});
-				}
-			}		
 		}
 	});
 });
+
+function setupGUIsearch() {
+	<? if ($uglyGUI) : ?>
+		$(".gui_search").hide();
+		$("#menu").prepend("<span id='guiSearchBoxSpan' style='float:left;text-align:left !important'><input autocomplete='new-password' id='guiSearchBox' class='narrow' placeholder='Search WebGUI' type='text' style='width:166px;'></input></span>");
+		$("#nav-block,.right").css("overflow","visible");
+		gui_search();
+	<? endif; ?>
+
+	if (navigator.appVersion.indexOf("Mac")!=-1) {
+		window.addEventListener('keydown', function (e) {
+			if (e.metaKey && e.keyCode == 75) {
+				e.preventDefault();
+				e.stopPropagation();
+				if ( $("#guiSearchBoxSpan").is(":visible") ) {
+					<? if ( ! $uglyGUI ) : ?>
+						closeSearchBox();
+					<? endif; ?>
+					return;
+				}
+				gui_search();
+			}
+		});
+	} else {
+		window.addEventListener('keydown', function (e) {
+			if (e.ctrlKey && e.keyCode == 75) {
+				e.preventDefault();
+				e.stopPropagation();
+				if ( $("#guiSearchBoxSpan").is(":visible") ) {
+					<? if ( ! $uglyGUI ) : ?>
+						closeSearchBox();
+					<? endif; ?>
+					return;
+				}
+				gui_search();
+			}
+		});
+	}
+	if (browserName !== "Chrome" && browserName !== "Edge") {
+		var hashTag = window.location.hash.substr(1).replace("%20"," ").replace("%2d","-");
+		if ( hashTag.length) {
+			$("body").mark(hashTag,{"accuracy": {"value": "exactly","limiters": [".",":","?"]},"separateWordSearch": false});
+		}
+	}
+}	
 
 function gui_search() {
 	if (typeof Awesomplete == 'function' ) {
@@ -138,24 +147,23 @@ function gui_search() {
 		var guiSearchAwesomplete;
 		guiSearchBoxInput = document.getElementById("guiSearchBox");
 		guiSearchAwesomplete = new Awesomplete(guiSearchBoxInput);
-			if (searchPages) {
-				console.log(searchPages);
-				var guiSearchSuggestions = JSON.parse(searchPages);
-				guiSearchAwesomplete.list = guiSearchSuggestions;
-				guiSearchAwesomplete.maxItems = 15;
-				Awesomplete.$('#guiSearchBox').removeEventListener('awesomplete-selectcomplete',guiSearch);
-				Awesomplete.$('#guiSearchBox').addEventListener('awesomplete-selectcomplete',guiSearch);
-				$("#guiSearchBox").next().addClass("guiSearchBoxResults");
-				$("#guiSearchBox").attr("autocomplete","new-password"); // Stop awesomplete from resetting autocomplete
-			}
-			$("#guiSearchBox").focus();
+		if (guiSearchSuggestions) {
+			guiSearchAwesomplete.list = guiSearchSuggestions;
+			guiSearchAwesomplete.maxItems = 15;
+			guiSearchAwesomplete.autoFirst = true;
+			Awesomplete.$('#guiSearchBox').removeEventListener('awesomplete-selectcomplete',guiSearch);
+			Awesomplete.$('#guiSearchBox').addEventListener('awesomplete-selectcomplete',guiSearch);
+			$("#guiSearchBox").next().addClass("guiSearchBoxResults");
+			$("#guiSearchBox").attr("autocomplete","new-password"); // Stop awesomplete from resetting autocomplete
+		}
+		$("#guiSearchBox").focus();
 
-			<? if ( ! $uglyGUI ) : ?>
-				$("#guiSearchBox").keydown(function(e) {
-					if (e.which === 27)
-						closeSearchBox();
-				});
-			<? endif; ?>
+		<? if ( ! $uglyGUI ) : ?>
+			$("#guiSearchBox").keydown(function(e) {
+				if (e.which === 27)
+					closeSearchBox();
+			});
+		<? endif; ?>
 	}
 }
 
@@ -186,6 +194,7 @@ function guiSearch() {
 		var scrollText = "";
 
 	var newPage = "<?=$currentUnraidPage?>/Settings/Tools";
+	newPage = newPage.replace(searchInfo[0]+"/","");
 	<? if (  $Unraid612 ) : ?>
 		if ( newPage == "Dashboard/Settings/Tools" ) {
 			newPage = "Settings";
