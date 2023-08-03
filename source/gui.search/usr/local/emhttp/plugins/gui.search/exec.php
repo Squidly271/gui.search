@@ -8,6 +8,7 @@
 @mkdir("/tmp/gui.search");
 
 extract(@parse_ini_file("/boot/config/plugins/dynamix/dynamix.cfg"));
+$locale = $locale ?: "";
 if ( $locale != @file_get_contents("/tmp/gui.search/locale") ) {
 	@unlink("/tmp/gui.search/searchResults.json");
 }
@@ -82,7 +83,7 @@ echo json_encode($searchPages);
 function getSettings() {
 	global $searchPages, $pageInfo, $page,$file,$locale;
 
-	$bannedPages = array("ShareEdit","UserEdit","Device","community.applications","Selftest","DeviceInfo","EthX","ca_settings","CA_Notices","SecuritySMB","SecurityNFS");
+	$bannedPages = array("ShareEdit","UserEdit","Device","community.applications","Selftest","DeviceInfo","EthX","CA_Notices","SecuritySMB","SecurityNFS");
 	if (in_array(basename($page,".page"),$bannedPages) ) return;
 	foreach (explode("\n",$file[1]) as $line) {
 		if ( preg_match("/^[_][(][[:print:]]+[)][_][:?]/m",$line) ) {
