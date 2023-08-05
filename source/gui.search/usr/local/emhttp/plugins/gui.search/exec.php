@@ -93,7 +93,7 @@ function getSettings() {
 			$extraEng = "";
 			$extraTra = "";
 			if ( $extra ) {
-				$extrasearch .= trim(str_replace(["<!--search:","-->"],["",""],$extra[0][0]));
+				$extrasearch = trim(str_replace(["<!--search:","-->"],["",""],$extra[0][0]));
 				$string = str_replace($extra[0][0],"",$string);
 				foreach ( explode("|",$extrasearch) as $term ) {
 					$extraEng .= $term."|";
