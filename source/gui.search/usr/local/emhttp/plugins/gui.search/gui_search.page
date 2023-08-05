@@ -205,7 +205,6 @@ function guiSearch() {
 	closeSearchBox();
 }
 
-
 /*!***************************************************
 * mark.js v9.0.0
 * https://markjs.io/

@@ -87,21 +87,34 @@ function getSettings() {
 	if (in_array(basename($page,".page"),$bannedPages) ) return;
 	foreach (explode("\n",$file[1]) as $line) {
 		if ( preg_match("/^[_][(][[:print:]]+[)][_][:?]/m",$line) ) {
-			$string = str_replace("_(","",$line);
-			$string = str_replace(")_:","",$string);
-			$string = str_replace(")_?","",$string);
+			preg_match("/<!--search:.*-->/i",$line,$extra,PREG_OFFSET_CAPTURE);
+			$string = str_replace(["_(",")_:",")_?"],["","",""],$line);
+
+			$extraEng = "";
+			$extraTra = "";
+			if ( $extra ) {
+				$extrasearch .= trim(str_replace(["<!--search:","-->"],["",""],$extra[0][0]));
+				$string = str_replace($extra[0][0],"",$string);
+				foreach ( explode("|",$extrasearch) as $term ) {
+					$extraEng .= $term."|";
+					$extraTra .= _($term)."|";
+				}
+				$extraEng = " [".rtrim($extraEng,"|")."]";
+				$extraTra = " [".rtrim($extraTra,"|")."]";
+			}
 			$string = sanitizeQuote($string);
+
 			$linkPage = basename($page,".page");
 			if (strpos($linkPage,"WG") === 0) {
 				$linkPage = "VPNmanager";
 			}
 			if ( stripos(str_replace(" ","",$line),"<!--donotindex-->") )
 				continue;
-			if ( ! in_array(array("label"=>"$string (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**"._($string)),$searchPages) ) {
-				$searchPages[] = array("label"=>_($string)." (".sanitizeQuote(_($pageInfo['Title'])).")","value"=>"$linkPage**"._($string));
+			if ( ! in_array(array("label"=>"$string $extraTra (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**"._($string)),$searchPages) ) {
+				$searchPages[] = array("label"=>_($string)." $extraTra (".sanitizeQuote(_($pageInfo['Title'])).")","value"=>"$linkPage**"._($string));
 				if ( $locale ) {
 					if ( _($string) !== $string )
-						$searchPages[] = array("label"=>($string)." (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**"._($string));
+						$searchPages[] = array("label"=>($string)." $extraEng (".sanitizeQuote($pageInfo['Title']).")","value"=>"$linkPage**"._($string));
 				}
 			}
 		}
