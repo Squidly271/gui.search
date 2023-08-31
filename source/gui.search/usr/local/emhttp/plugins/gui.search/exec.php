@@ -86,9 +86,10 @@ function getSettings() {
 	$bannedPages = array("ShareEdit","UserEdit","Device","community.applications","Selftest","DeviceInfo","EthX","CA_Notices","SecuritySMB","SecurityNFS");
 	if (in_array(basename($page,".page"),$bannedPages) ) return;
 	foreach (explode("\n",$file[1]) as $line) {
-		if ( preg_match("/^[_][(][[:print:]]+[)][_][:?]/m",$line) ) {
+		$line = trim($line);
+		if ( startsWith($line,"_(") && (endsWith($line,")_:") || endsWith($line,")_):") ) ) {
 			preg_match("/<!--search:.*-->/i",$line,$extra,PREG_OFFSET_CAPTURE);
-			$string = str_replace(["_(",")_:",")_?"],["","",""],$line);
+			$string = str_replace(["_(",")_:",")_?",")_"],["","","",""],$line);
 
 			$extraEng = "";
 			$extraTra = "";
@@ -125,4 +126,21 @@ function sanitizeQuote($string) {
 	return str_replace("'","",str_replace('"',"",$string));
 }
 
+##############################################
+# Determine if $haystack begins with $needle #
+##############################################
+function startsWith($haystack, $needle) {
+	if ( !is_string($haystack) || ! is_string($needle) ) return false;
+	return $needle === "" || strripos($haystack, $needle, -strlen($haystack)) !== FALSE;
+}
+#############################################
+# Determine if $string ends with $endstring #
+#############################################
+function endsWith($string, $endString) {
+	$len = strlen($endString);
+	if ($len == 0) {
+		return true;
+	}
+	return (substr($string, -$len) === $endString);
+}
 ?>
